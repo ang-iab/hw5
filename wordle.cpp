@@ -29,11 +29,13 @@ void helper(std::string& word, const std::string& in, std::string floating, size
         for (char l = 'a'; l <= 'z'; ++l)
         {
             std::string newFloating = floating;
-            word[n] = l;
+            size_t idx = newFloating.find(l);
 
-            if (newFloating.find(l) != std::string::npos)
+            word[n] = l;
+            
+            if (idx != std::string::npos)
             {
-                newFloating.erase(newFloating.begin() + newFloating.find(l));
+                newFloating.erase(newFloating.begin() + idx);
             }
 
             helper(word, in, newFloating, n + 1, str, dict);
@@ -44,7 +46,6 @@ void helper(std::string& word, const std::string& in, std::string floating, size
         word[n] = in[n];
         helper(word, in, floating, n + 1, str, dict);
     }
-
 }
 
 // Definition of primary wordle function

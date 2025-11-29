@@ -39,6 +39,18 @@ bool schedule(
     // Add your code below
     std::vector<size_t> shift(avail[0].size(), 0);
 
+    for (size_t i = 0; i < avail.size(); ++i)
+    {
+        std::vector<Worker_T> row;
+
+        for (size_t j = 0; j < dailyNeed; ++j)
+        {
+            row.push_back(static_cast<Worker_T>(0));
+        }
+        
+        sched.push_back(row);
+    }
+
     return helper(avail, dailyNeed, maxShifts, sched, shift, 0, 0);
 }
 
@@ -48,7 +60,7 @@ bool helper(const AvailabilityMatrix& avail, const size_t dailyNeed, const size_
 
     for (size_t i = 0; i < avail[day].size(); ++i)
     {
-        if (avail[day][i] && shift[i] <= maxShifts && 
+        if (avail[day][i] && shift[i] < maxShifts && 
             std::find(sched[day].begin(), sched[day].begin() + n, static_cast<Worker_T>(i)) == sched[day].begin() + n)
         {
             sched[day][n] = static_cast<Worker_T>(i);

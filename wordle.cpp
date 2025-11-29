@@ -46,19 +46,35 @@ void helper(std::string& word, const std::string& in, std::string floating, size
 
     if (in[n] == '-') // Is a Blank
     {
-        for (char l = 'a'; l <= 'z'; ++l)
+        if (in.length() - n < floating.size()) return;
+
+        if (in.length() - n == floating.size())
         {
-            std::string newFloating = floating;
-            size_t idx = newFloating.find(l);
-
-            word[n] = l;
-            
-            if (idx != std::string::npos)
+            for (size_t i = 0; i < floating.size(); ++i)
             {
-                newFloating.erase(newFloating.begin() + idx);
-            }
+                std::string newFloating = floating;
 
-            helper(word, in, newFloating, n + 1, str, dict);
+                word[n] = floating[i];
+                newFloating.erase(newFloating.begin() + i);
+                helper(word, in, newFloating, n + 1, str, dict);
+            }
+        }
+        else
+        {
+            for (char l = 'a'; l <= 'z'; ++l)
+            {
+                std::string newFloating = floating;
+                size_t idx = newFloating.find(l);
+
+                word[n] = l;
+                
+                if (idx != std::string::npos)
+                {
+                    newFloating.erase(newFloating.begin() + idx);
+                }
+
+                helper(word, in, newFloating, n + 1, str, dict);
+            }
         }
     }
     else // Not a Blank

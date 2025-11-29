@@ -13,6 +13,26 @@ using namespace std;
 
 
 // Add prototypes of helper functions here
+void helper(std::string& word, const std::string& in, std::string floating, size_t n, std::set<std::string>& str, const std::set<std::string>& dict);
+
+// Definition of primary wordle function
+std::set<std::string> wordle(
+    const std::string& in,
+    const std::string& floating,
+    const std::set<std::string>& dict)
+{
+    // Add your code here
+    std::set<std::string> str;
+    std::string word = in;
+    std::string f = floating;
+    size_t n = 0;
+
+    helper(word, in, f, n, str, dict);
+
+    return str;
+}
+
+// Define any helper functions here
 void helper(std::string& word, const std::string& in, std::string floating, size_t n, std::set<std::string>& str, const std::set<std::string>& dict)
 {
     if (n == in.length())
@@ -47,22 +67,3 @@ void helper(std::string& word, const std::string& in, std::string floating, size
         helper(word, in, floating, n + 1, str, dict);
     }
 }
-
-// Definition of primary wordle function
-std::set<std::string> wordle(
-    const std::string& in,
-    const std::string& floating,
-    const std::set<std::string>& dict)
-{
-    // Add your code here
-    std::set<std::string> str;
-    std::string word = in;
-    std::string f = floating;
-    size_t n = 0;
-
-    helper(word, in, f, n, str, dict);
-
-    return str;
-}
-
-// Define any helper functions here
